@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 50px;
+        }
+        .results {
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        .result-item {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .result-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .result-url {
+            color: #007bff;
+            text-decoration: none;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .result-score {
+            color: green;
+            margin-top: 5px;
+        }
+        .no-results {
+            color: red;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .home-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .home-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search Results for "{{ query }}"</h1>
+    <div class="button-container">
+        <form action="/" method="get">
+            <button class="home-button" type="submit">Go to Home Page</button>
+        </form>
+    </div>
+    {% if no_results_msg %}
+        <p class="no-results">{{ no_results_msg }}</p>
+    {% else %}
+        {% if results %}
+            <div class="results">
+                {% for result in results %}
+                    <div class="result-item">
+                        <p class="result-title">{{ result[0] }}</p>
+                        <a class="result-url" href="{{ urls[result[0]] }}">{{ urls[result[0]] }}</a>
+                        <p class="result-score">Score: {{ result[1] }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="no-results">No results found.</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
